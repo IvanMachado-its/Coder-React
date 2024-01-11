@@ -1,25 +1,23 @@
+// NavBar.js
 import React from 'react';
-import CartWidget from './CartWidget'; // Asegúrate de que la ruta sea correcta
+import CartWidget from './CartWidget';
 
 const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/">Mi Tienda</a>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ml-auto">
+      <div className="container">
+        <a className="navbar-brand" href="#">Nombre de la Tienda</a>
+        
+        {/* Listado de categorías */}
+        <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link" href="/">Inicio</a>
+            <a className="nav-link" href="#">Categoría 1</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about">Acerca de</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/contact">Contacto</a>
-          </li>
-          <li className="nav-item">
-            <CartWidget />
+            <a className="nav-link" href="#">Categoría 2</a>
           </li>
         </ul>
+        <CartWidget />
       </div>
     </nav>
   );
