@@ -1,14 +1,11 @@
+// CartWidget.js
 import React from 'react';
-import { FaShoppingCart } from 'react-icons/fa';
-import './CartWidget.css';
 
 const CartWidget = () => {
-  const cartItemCount = 5; // 
-
   return (
     <div className="cart-widget">
-      <FaShoppingCart />
-      <span className="badge">{cartItemCount}</span>
+      <i className="fas fa-shopping-cart"></i>
+      <span className="badge badge-pill badge-danger">5</span>
     </div>
   );
 };
