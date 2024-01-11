@@ -1,14 +1,15 @@
-// En tu archivo App.js o en cualquier otro componente donde quieras usar NavBar
+// src/App.js
 import React from 'react';
 import NavBar from './components/NavBar';
+import ItemListContainer from './components/ItemListContainer';
 
-const App = () => {
+function App() {
   return (
     <div>
       <NavBar />
-     
+      <ItemListContainer greeting="Bienvenido a nuestro e-commerce" />
     </div>
   );
-};
+}
 
 export default App;
