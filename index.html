@@ -1,3 +1,4 @@
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,12 +27,24 @@
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
     ></script>
 
-    <script src="App.js"></script>
+    <script type="module">
+      import App from '/src/App.js';
+      import Navbar from './src/components/Navbar';
+      import CartWidget from './src/components/CartWidget';
 
-    <script>
       ReactDOM.render(
         React.createElement(App.default),
         document.getElementById('root')
+      );
+
+      ReactDOM.render(
+        React.createElement(Navbar.default),
+        document.getElementById('navbar')
+      );
+
+      ReactDOM.render(
+        React.createElement(CartWidget.default),
+        document.getElementById('cart-widget')
       );
     </script>
   </body>

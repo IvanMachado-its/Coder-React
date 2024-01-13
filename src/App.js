@@ -1,12 +1,12 @@
-// src/App.js
+
 import React from 'react';
-import NavBar from './src/components/NavBar';
-import ItemListContainer from './src/components/ItemListContainer';
+import Navbar from './components/Navbar';
+import ItemListContainer from './components/ItemListContainer';
 
 function App() {
   return (
     <div>
-      <NavBar />
+      <Navbar />
       <ItemListContainer greeting="Bienvenido a nuestro e-commerce" />
     </div>
   );

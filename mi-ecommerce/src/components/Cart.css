@@ -1,0 +1,22 @@
+/* Cart.css */
+.cart-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: 300px;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--rich-black); 
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+
+.cart-container.show {
+  transform: translateX(0);
+}
+
+.cart-item {
+  margin-top: 10px;
+  background-color: var(--glaucous);
+}
