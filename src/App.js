@@ -1,14 +1,16 @@
-
 import React from 'react';
-import Navbar from './components/Navbar';
-import ItemListContainer from './components/ItemListContainer';
+import NavBar from './components/common/NavBar';
+import ItemListContainer from './components/features/ItemListContainer';
+import { CartProvider } from './CartContext';
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <ItemListContainer greeting="Bienvenido a nuestro e-commerce" />
-    </div>
+    <CartProvider>
+      <div className="App">
+        <NavBar />
+        <ItemListContainer />
+      </div>
+    </CartProvider>
   );
 }
 
