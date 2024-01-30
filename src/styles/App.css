@@ -36,4 +36,8 @@
   .cart-dropdown button.btn-success {
     margin-top: 10px;
   }
-  
+  .cart-container {
+    margin-left: auto; /* Empuja el contenedor del carrito hacia la derecha */
+    display: flex;
+    align-items: center;
+  }

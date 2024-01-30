@@ -1,20 +1,24 @@
 // src/components/common/CartWidget.js
 import React, { useContext, useState } from 'react';
 import { FaShoppingCart, FaTrash } from 'react-icons/fa';
-import { CartContext } from '../../CartContext';
+import { CartContextProvider, useCart } from '../../CartContext';
 
 const CartWidget = () => {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart } = useCart(); // Ajusta esta línea
   const [isCartOpen, setIsCartOpen] = useState(false);
+
 
   const handleToggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
+    return cartItems.reduce((total, item) => {
+      const itemPrice = item.price ? parseFloat(item.price) : 0;
+      return total + itemPrice;
+    }, 0).toFixed(2);
   };
-
+  
   const handleBuy = () => {
     alert('Compra realizada con éxito');
   };
@@ -31,7 +35,7 @@ const CartWidget = () => {
           <ul className="list-group">
             {cartItems.map(item => (
               <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
-                {item.name} - ${item.price.toFixed(2)}
+                {item.name} - ${item.price ? item.price.toFixed(2) : 'Precio no disponible'}
                 <button
                   className="btn btn-danger btn-sm"
                   onClick={() => removeFromCart(item.id)}

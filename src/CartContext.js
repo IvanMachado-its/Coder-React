@@ -1,23 +1,53 @@
 // src/CartContext.js
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 
-export const CartContext = createContext();
+const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+const initialState = {
+  cartItems: [],
+};
+
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_TO_CART':
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.payload],
+      };
+    case 'REMOVE_FROM_CART':
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(item => item.id !== action.payload),
+      };
+    default:
+      return state;
+  }
+};
+
+const CartContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   const addToCart = (item) => {
-    setCartItems([...cartItems, item]);
+    dispatch({ type: 'ADD_TO_CART', payload: item });
   };
 
   const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter(item => item.id !== itemId);
-    setCartItems(updatedCart);
+    dispatch({ type: 'REMOVE_FROM_CART', payload: itemId });
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems: state.cartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
 };
+
+const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used within a CartContextProvider');
+  }
+  return context;
+};
+
+export { CartContextProvider, useCart };
