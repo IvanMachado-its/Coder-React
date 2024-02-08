@@ -1,4 +1,3 @@
-// src/components/features/ItemDetailContainer.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../../data';
@@ -8,12 +7,16 @@ const ItemDetailContainer = () => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    getProduct(id)
-      .then(product => setItem(product))
-      .catch(error => {
-        console.error('Error al obtener el producto:', error);
-        setItem(null);
-      });
+    const fetchItem = async () => {
+      try {
+        const product = await getProduct(id);
+        setItem(product);
+      } catch (error) {
+        console.error('Error fetching item:', error);
+      }
+    };
+
+    fetchItem();
   }, [id]);
 
   return (
@@ -22,12 +25,16 @@ const ItemDetailContainer = () => {
         <div className="card">
           <div className="row">
             <div className="col-md-6">
-              <img src={`https://via.placeholder.com/400x400?text=${item.name}`} className="card-img-top" alt={item.name} />
+              <img
+                src={`https://via.placeholder.com/400x400?text=${item.name}`}
+                className="card-img-top"
+                alt={item.name}
+              />
             </div>
             <div className="col-md-6">
               <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
-                <p className="card-text">${item.price.toFixed(2)}</p>
+                <p className="card-text">${item.price ? item.price.toFixed(2) : 'Precio no disponible'}</p>
                 <p className="card-text">{item.description}</p>
                 <hr />
                 <h6>Detalles:</h6>
