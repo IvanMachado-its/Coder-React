@@ -1,11 +1,20 @@
 // src/components/features/ItemDetailContainer.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { products } from '../../data';
+import { getProduct } from '../../data';
 
 const ItemDetailContainer = () => {
   const { id } = useParams();
-  const item = products.find(product => product.id === parseInt(id));
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    getProduct(id)
+      .then(product => setItem(product))
+      .catch(error => {
+        console.error('Error al obtener el producto:', error);
+        setItem(null);
+      });
+  }, [id]);
 
   return (
     <div className="container mt-4">

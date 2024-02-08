@@ -1,17 +1,29 @@
 // src/components/features/ItemListContainer.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../../CartContext';
-import { products, categories } from '../../data';
+import { getProducts, categories } from '../../data';
 
 const ItemListContainer = () => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
   const { id: categoryId } = useParams();
+  const [products, setProducts] = useState([]);
 
-  const filteredProducts = categoryId
-    ? products.filter(product => product.category === categories.find(c => c.id === Number(categoryId)).name)
-    : products;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(categoryId
+          ? data.filter(product => product.category === categories.find(c => c.id === Number(categoryId)).name)
+          : data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [categoryId]);
 
   const handleCategoryClick = (category) => {
     navigate(`/category/${category.id}`);
@@ -21,7 +33,7 @@ const ItemListContainer = () => {
     <div className="container">
       <h2>Lista de Productos</h2>
       <div className="row">
-        {filteredProducts.map(product => (
+        {products.map(product => (
           <div key={product.id} className="col-md-4 mb-4">
             <div className="card">
               <div className="card-body">
