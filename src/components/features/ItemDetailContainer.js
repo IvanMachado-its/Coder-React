@@ -1,10 +1,15 @@
+// src/components/features/ItemDetailContainer.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from '../../CartContext';
 import { getProduct } from '../../data';
+import ItemQuantitySelector from './ItemQuantitySelector';
 
 const ItemDetailContainer = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const [item, setItem] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -18,6 +23,25 @@ const ItemDetailContainer = () => {
 
     fetchItem();
   }, [id]);
+
+  const handleAddToCart = () => {
+    const itemToAdd = {
+      ...item,
+      quantity: quantity,
+    };
+    addToCart(itemToAdd);
+    setQuantity(1); 
+  };
+
+  const handleQuantityIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleQuantityDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -46,7 +70,14 @@ const ItemDetailContainer = () => {
                   <li>Marca: {item.brand || 'No especificada'}</li>
                 </ul>
                 <hr />
-                <button className="btn btn-primary">Agregar al carrito</button>
+                <ItemQuantitySelector
+                  quantity={quantity}
+                  onIncrease={handleQuantityIncrease}
+                  onDecrease={handleQuantityDecrease}
+                />
+                <button className="btn btn-primary" onClick={handleAddToCart}>
+                  Agregar al carrito
+                </button>
               </div>
             </div>
           </div>

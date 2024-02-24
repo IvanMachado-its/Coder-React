@@ -32,6 +32,9 @@ const NavBar = () => {
         <div className="cart-container">
           <CartWidget />
         </div>
+        <Link to="/cart" className="btn btn-primary ml-2">
+          Carrito
+        </Link>
       </div>
     </nav>
   );

@@ -1,43 +1,46 @@
 /* src/styles/App.css */
+
+.cart-container {
+  display: flex;
+  align-items: center;
+}
+
 .cart-widget {
-    position: relative;
-  }
-  
-  .cart-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    z-index: 1000;
-  }
-  
-  .cart-dropdown ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .cart-dropdown li {
-    padding: 10px;
-  }
-  
-  .cart-dropdown button {
-    margin-left: 10px;
-  }
+  position: relative;
+  margin-left: 20px; /* Ajusta el margen izquierdo según sea necesario */
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: 120%; /* Ajusta la distancia desde la parte superior según sea necesario */
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 1000;
+}
+
+.cart-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-dropdown li {
+  padding: 10px;
+}
+
+.cart-dropdown button {
+  margin-left: 10px;
+}
+
 .cart-dropdown .total {
-    padding: 10px;
-    border-top: 1px solid #ddd;
-    font-weight: bold;
-  }
-  
-  .cart-dropdown button.btn-success {
-    margin-top: 10px;
-  }
-  .cart-container {
-    margin-left: auto; /* Empuja el contenedor del carrito hacia la derecha */
-    display: flex;
-    align-items: center;
-  }
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.cart-dropdown button.btn-success {
+  margin-top: 10px;
+}

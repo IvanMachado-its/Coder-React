@@ -1,13 +1,19 @@
+// src/components/features/ItemListContainer.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../../CartContext';
 import { getProducts, categories } from '../../data';
+import ItemQuantitySelector from './ItemQuantitySelector';
+
+// Placeholder image URL (cámbialo con el URL del placeholder que desees)
+const placeholderImageUrl = 'https://via.placeholder.com/400x400?text=Placeholder';
 
 const ItemListContainer = () => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
   const { id: categoryId } = useParams();
   const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState(1); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +36,25 @@ const ItemListContainer = () => {
     navigate(`/category/${category.id}`);
   };
 
+  const handleQuantityIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleQuantityDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleAddToCart = (product) => {
+    const itemToAdd = {
+      ...product,
+      quantity: quantity,
+    };
+    addToCart(itemToAdd);
+    setQuantity(1); 
+  };
+
   return (
     <div className="container">
       <h2>Lista de Productos</h2>
@@ -39,8 +64,14 @@ const ItemListContainer = () => {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
+                <img src={product.image || placeholderImageUrl} alt={product.name} className="card-img-top" />
                 <p className="card-text">${product.price ? product.price.toFixed(2) : 'Precio no disponible'}</p>
-                <button className="btn btn-primary" onClick={() => addToCart(product)}>
+                <ItemQuantitySelector
+                  quantity={quantity}
+                  onIncrease={handleQuantityIncrease}
+                  onDecrease={handleQuantityDecrease}
+                />
+                <button className="btn btn-primary" onClick={() => handleAddToCart(product)}>
                   Agregar al carrito
                 </button>
                 <Link to={`/item/${product.id}`} className="btn btn-link">
